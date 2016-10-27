@@ -28,6 +28,6 @@
     </testsuites>
     <logging>
         <log type="testdox-text" target="php://stdout" />
-        <!--<log type="coverage-text" target="php://stdout" />-->
+        <log type="coverage-text" target="php://stdout" />
     </logging>
 </phpunit>
