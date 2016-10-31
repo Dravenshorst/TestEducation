@@ -2,9 +2,7 @@
 
 namespace Daniel;
 
-//use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Exception\Exception;
 
 class WordWrapperTest extends TestCase
 {
@@ -23,8 +21,8 @@ class WordWrapperTest extends TestCase
 
     public function testConstructWithString()
     {
-        $wordWrap = new WordWrapper('test');
         $this->expectException(\InvalidArgumentException::class);
+        $wordWrap = new WordWrapper('test');
     }
 
 }

@@ -3,6 +3,7 @@
 namespace Daniel;
 
 use RopBot\WordWrapInterface;
+
 /**
  * Class WordWrapper
  */
@@ -24,9 +25,6 @@ class WordWrapper implements WordWrapInterface
     {
         if (!is_int($p_max_length)) {
             throw new \InvalidArgumentException();
-//            throw new \Exception(
-//                sprintf(self::ERROR_NO_INT, gettype($p_max_length))
-//            );
         }
 
         $this->pMaxLength = $p_max_length;
@@ -49,6 +47,7 @@ class WordWrapper implements WordWrapInterface
         $result = [];
         $resultString = '';
         $words = explode(' ', $input);
+        $lastWord = end($words);
         foreach ($words as $word) {
 
             $countWord = mb_strlen($word);
@@ -65,15 +64,23 @@ class WordWrapper implements WordWrapInterface
                     $resultString .= ' ' . $word;
                 } elseif (mb_strlen($resultString) + 1 + $countWord >= $this->pMaxLength) {
                     $result[] = $resultString;
-                    $resultString = '';
+                    $resultString = $word;
+
+                    if ($word === $lastWord) {
+                        $result[] = $resultString;
+                    }
                 }
 
             }
         }
 
         $wrappedResult = '';
+        $lastWrap = end($result);
         foreach ($result as $wraps) {
-            $wrappedResult .= $wraps . "\n";
+            $wrappedResult .= $wraps;
+            if ($wraps !== $lastWrap) {
+                $wrappedResult .= "\n";
+            }
         }
 
         return $wrappedResult;
